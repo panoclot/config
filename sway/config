@@ -1,0 +1,128 @@
+set $mod Mod4
+set $term foot
+set $menu fuzzel -I
+
+exec ~/.config/sway/autostart.sh
+output * bg ~/pix/wallpapers/"$(cat ~/.local/currentwallpaper)" fill
+
+output DP-3 pos 0 0
+output HDMI-A-1 mode 1920x1080@180hz pos 1920 0
+
+input * {
+	xkb_layout "us"
+	xkb_options "caps:ctrl_modifier"
+	accel_profile "flat"
+	pointer_accel 0
+}
+
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+q kill
+bindsym $mod+d exec $menu
+floating_modifier $mod normal
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+Backspace exec swaymsg exit
+
+bindsym $mod+Left focus left
+bindsym $mod+j focus left
+bindsym $mod+Right focus right
+bindsym $mod+k focus right
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+k move right
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+workspace "1" output HDMI-A-1 
+workspace "2" output HDMI-A-1 
+workspace "3" output HDMI-A-1 
+workspace "4" output HDMI-A-1 
+workspace "5" output HDMI-A-1 
+workspace "6" output HDMI-A-1 
+workspace "7" output HDMI-A-1 
+workspace "8" output HDMI-A-1 
+workspace "9" output DP-3
+workspace "10" output DP-3
+
+bindsym $mod+Tab workspace back_and_forth
+
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+bindsym $mod+f fullscreen
+
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
+# Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
+
+# bindsym $mod+a focus parent
+
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+# FINALLY GOT THIS WORKING GOD DAMN IT
+bindsym $mod+h exec swaymsg resize grow left 20px; exec swaymsg resize shrink right 20px;
+bindsym $mod+l exec swaymsg resize grow right 20px; exec swaymsg resize shrink left 20px;
+
+bindsym Print exec grim | wl-copy
+bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
+bindsym $mod+p exec wallpaper
+bindsym $mod+Shift+p exec random_wallpaper
+bindsym $mod+g exec pw-jack guitarix
+bindsym $mod+a exec anki
+bindsym $mod+z exec zathura
+bindsym $mod+t exec pcmanfm
+bindsym $mod+Prior exec wpctl set-volume @DEFAULT_SINK@ 1%+
+bindsym $mod+Next exec wpctl set-volume @DEFAULT_SINK@ 1%-
+
+font monaspicern nerd font 9
+#				border	bg	text	dir bar	idk
+client.focused                  #111111 #000001 #ffffff #111111 #111111
+client.focused_inactive         #444444 #222222 #666666 #444444 #444444
+client.unfocused                #444444 #222222 #666666 #444444 #444444
+
+bar {
+    position top
+    font monaspicern nerd font 9
+    status_command while true; do ~/.config/status.sh; done
+    colors {
+#				border*	bg*****	text***
+        statusline		#ffffff
+        background		#000000
+        inactive_workspace	#000000 #000000 #ffffff
+        focused_workspace	#ffffff #000000 #ffffff
+        active_workspace	#666666 #000000 #ffffff
+    }
+}
+
+include /etc/sway/config.d/*

@@ -1,0 +1,14 @@
+PS1='$(echo -e "\e[30;101m$PWD\e[0m" | sed "s|$(echo $HOME)|~|g") '
+
+(cat ~/.cache/wal/sequences &)
+
+alias xr="doas xbps-remove"
+alias xqr="xbps-query -Rs"
+alias ls="ls --color=auto"
+alias sudo="doas"
+alias news="newsraft"
+
+alias o="xdg-open"
+alias s="du -d 1 -h"
+
+alias gen-password="head -c 256 /dev/urandom | tr -dc A-Za-z0-9\!-\? | wl-copy ; echo \"password created and copied to clipboard.\""
